@@ -1,80 +1,106 @@
-import React, { useState } from 'react';
-// import { Link, Navigate } from 'react-router-dom';
-import '../styling/authentication.css';
-import { useNavigate } from 'react-router-dom';
+// import React, { useState } from 'react';
+// import Header from './Header'
+// // import { Link, Navigate } from 'react-router-dom';
+// import '../styling/authentication.css';
+// import { useNavigate } from 'react-router-dom';
 
-const Authentication = ({ isSignup }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [loggedIn, setLoggedIn] = useState(false);
-    // const [isSignupMode, setIsSignupMode] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const [signupSuccess, setSignupSuccess] = useState(false);
-    const navigate = useNavigate();
+// const Authentication = ({ isSignup }) => {
+//     const [username, setUsername] = useState('');
+//     const [password, setPassword] = useState('');
+//     const [loggedIn, setLoggedIn] = useState(false);
+//     // const [isSignupMode, setIsSignupMode] = useState(false);
+//     const [errorMessage, setErrorMessage] = useState('');
+//     const [signupSuccess, setSignupSuccess] = useState(false);
+//     const navigate = useNavigate();
 
-    // const handleModeToggle = () => {
-    //     setIsSignupMode(!isSignupMode);
-    //     setErrorMessage('');
-    //     setSignupSuccess(false);
-    // };
+//     // const handleModeToggle = () => {
+//     //     setIsSignupMode(!isSignupMode);
+//     //     setErrorMessage('');
+//     //     setSignupSuccess(false);
+//     // };
 
-    const handleLogin = async () => {
-        try {
-            const response = await fetch('http://localhost:5555/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
+//     const handleLogin = async () => {
+//         try {
+//             const response = await fetch('http://localhost:5555/login', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ username, password }),
+//             });
 
-            if (response.status === 200) {
-                const data = await response.json();
-                navigate(`/profile/${username.id}`); // Use data.user_id here
-            } else {
-                setErrorMessage('Invalid username or password.');
-            }
-        } catch (error) {
-            console.error('Login error:', error);
-        }
-    };
+//             if (response.status === 200) {
+//                 const data = await response.json();
+//                 navigate(`/profile/${username.id}`); // Use data.user_id here
+//             } else {
+//                 setErrorMessage('Invalid username or password.');
+//             }
+//         } catch (error) {
+//             console.error('Login error:', error);
+//         }
+//     };
 
-    const handleSignup = async () => {
-        if (username.length < 5 || password.length < 5) {
-            setErrorMessage('Username and password must be at least 5 characters.');
-            return;
-        }
+//     const handleSignup = async () => {
+//         if (username.length < 5 || password.length < 5) {
+//             setErrorMessage('Username and password must be at least 5 characters.');
+//             return;
+//         }
 
-        try {
-            const response = await fetch('http://localhost:5555/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ username, password }),
-            });
+//         try {
+//             const response = await fetch('http://localhost:5555/signup', {
+//                 method: 'POST',
+//                 headers: {
+//                     'Content-Type': 'application/json',
+//                 },
+//                 body: JSON.stringify({ username, password }),
+//             });
 
-            if (response.status === 201) {
-                setSignupSuccess(true);
-                setErrorMessage('');
-            } else {
-                setErrorMessage('Username already exists. Please choose a different username.');
-            }
-        } catch (error) {
-            console.error('Signup error:', error);
-        }
-    };
+//             if (response.status === 201) {
+//                 setSignupSuccess(true);
+//                 setErrorMessage('');
+//             } else {
+//                 setErrorMessage('Username already exists. Please choose a different username.');
+//             }
+//         } catch (error) {
+//             console.error('Signup error:', error);
+//         }
+//     };
 
-    if (loggedIn) {
-        navigate(`/profile/${username.id}`); // Use data.user_id here
-        return null;
-    }
+//     if (loggedIn) {
+//         navigate(`/profile/${username.id}`); // Use data.user_id here
+//         return null;
+//     }
 
-    return (
-        <div className="container">
-            {/* ... (rest of your code) */}
-        </div>
-    );
-};
+//     return (
+//         <div className="container">
+//             <h1>99 problems but a bitch aint one</h1>
+//             {/* ... (rest of your code) */}
+//         </div>
+//     );
+// };
 
-export default Authentication;
+// export default Authentication;
+
+
+
+
+
+// <div class="main">
+//     <input type="checkbox" id="chk" aria-hidden="true">
+//         <div class="signup">
+//             <form>
+//                 <label for="chk" aria-hidden="true">Sign up</label>
+//                 <input type="text" name="txt" placeholder="Full Name" required="">
+//                     <input type="text" name="txt" placeholder="User name" required="">
+//                         <input type="password" name="pswd" placeholder="Password" required="">
+//                             <button>Sign up</button>
+//                         </form>
+//                     </div>
+//                     <div class="login">
+//                         <form>
+//                             <label for="chk" aria-hidden="true">Login</label>
+//                             <input type="text" name="txt" placeholder="User name" required="">
+//                                 <input type="password" name="pswd" placeholder="Password" required="">
+//                                     <button>Login</button>
+//                                 </form>
+//                             </div>

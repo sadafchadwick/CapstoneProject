@@ -117,7 +117,7 @@ nav .start-contact, a:nth-child(5):hover~.animation {
   background-color: #e67e22;
 } */
 
-.glow-on-hover {
+/* .glow-on-hover {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -174,7 +174,7 @@ nav .start-contact, a:nth-child(5):hover~.animation {
 
 button {
   margin: .5em
-}
+} */
 
 /* .nav-button{
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;

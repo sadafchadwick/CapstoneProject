@@ -1,46 +1,48 @@
-import { BrowserRouter as Router, Switch, Route, Routes, Navigate } from 'react-router-dom'
-import Header from './Header'
-import NavBar from './NavBar'
-import Profile from './Profile'
-import Inventory from './Inventory'
-import Documents from './Documents'
-import Authentication from './Authentication';
 import React from 'react';
-
-import '../styling/app.css'; 
-
-
+import { useState } from 'react';
+import Home from './Home';
+import Header from './Header';
+import NavBar from './NavBar';
+import Inventory from './Inventory';
+import Documents from './Documents';
+import Senarios from './Senarios';
+import NotFound from './NotFound';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { UserProvider } from './UseContext';
 
 function App() {
-  return (
-    <Router>
-      <Header />
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Navigate to="/auth" />} />
-        <Route path="/authentication" element={<Authentication />} />
-        <Route path="/*" element={<AuthenticatedRoutes />} />
-      </Routes>
-  </Router>
-  );
+    //here for useContext
+    const [user, setUser] = useState(null)
+
+    return (
+        <Router>
+            <Header />
+            <UserProvider>
+                <Home />
+                <NavBar />
+                <Switch>
+                    <Route exact path="/">
+                        <Home />
+                    </Route>
+                    <Route exact path="/home">
+                        <Home />
+                    </Route>
+                    <Route exact path="/inventory">
+                        <Inventory />
+                    </Route>
+                    <Route exact path="/medicaldocs">
+                        <Documents />
+                    </Route>
+                    <Route exact path="/senarios">
+                        <Senarios />
+                    </Route>
+                    <Route path="*">
+                        <NotFound />
+                    </Route>
+                </Switch>
+            </UserProvider>
+        </Router>
+    )
 }
 
-function AuthenticatedRoutes() {
-
-  return (
-    <>
-      <div className="app-background"></div>
-      {<NavBar />}
-      <Routes>
-        <Route path="/profile/:userId" element={<Profile />} />
-        <Route path="/profile/:userId/inventory" element={<Inventory />} />
-        <Route path="/profile/:userId/medicaldocs" element={<Documents />} />
-        {/* Add more routes here */}
-      </Routes>
-    </>
-  );
-}
-{/* <Navigate to="/auth" /> */}
-
-
-export default App;
+export default App
