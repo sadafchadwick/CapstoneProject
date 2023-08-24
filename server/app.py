@@ -51,12 +51,6 @@ class Signup(Resource):
 api.add_resource(Signup, '/signup')
 
 
-# class Users(Resource):
-#     def get(self):
-#         users = User.query.all()
-#         return make_response([user.to_dict() for user in users], 200)
-
-# api.add_resource(Users, '/users')
 
 class UsersById(Resource):
     def get(self, id):
@@ -93,7 +87,7 @@ api.add_resource(UsersById, '/users/<int:id>')
 class Foods(Resource):
     def get(self):
         foods = Food.query.all()
-        return make_response([food.to_dict() for food in foods], 200)
+        return make_response([food.to_dict(only =('id', 'name', 'amount',)) for food in foods], 200)
 
 api.add_resource(Foods, '/foods')
 
@@ -127,7 +121,7 @@ class FoodsById(Resource):
         db.session.commit()
         return make_response({}, 204)
 
-api.add_resource(UsersById, '/foods/<int:id>')
+api.add_resource(FoodsById, '/foods/<int:id>')
 
 class UserFoods(Resource):
     def get(self):
@@ -139,3 +133,15 @@ api.add_resource(UserFoods, '/userfoods')
 if __name__ == '__main__':
     # from models import User, Food, UserFood
     app.run(port=5555, debug=True )
+
+
+
+
+
+
+# class Users(Resource):
+#     def get(self):
+#         users = User.query.all()
+#         return make_response([user.to_dict() for user in users], 200)
+
+# api.add_resource(Users, '/users')

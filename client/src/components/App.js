@@ -40,6 +40,7 @@ function AuthenticatedRoutes() {
     </>
   );
 }
+{/* <Navigate to="/auth" /> */}
 
 
 export default App;
