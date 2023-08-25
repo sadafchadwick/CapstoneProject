@@ -17,7 +17,7 @@ function App() {
 
     return (
         <Router>
-            <Header />
+            <Header className='root'/>
             <UserProvider>
                 <NavBar />
                 <Switch>

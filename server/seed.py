@@ -20,7 +20,7 @@ def create_users():
         u = User(
             name=fake.name(),
             username=fake.user_name(),
-            password_hash='password123'
+            _password_hash='$2b$12$1zeT0udSbh0Qa9QzNZchSeFoaG0TA4Jevy01L8PoM0/jj513Ts.ku'
         )
         users.append(u)
     return users

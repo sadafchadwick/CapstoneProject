@@ -11,6 +11,7 @@ function Signup() {
     const history = useHistory()
 
     const [userName, setUserName] = useState('')
+    const [name, setName] = useState('')
     const [password, setPassword] = useState('')
 
     const { setUser } = useContext(UserContext)
@@ -18,12 +19,12 @@ function Signup() {
     function handleSubmit(e) {
         e.preventDefault();
         const formObj = {
-            'userName': userName,
-            'password': password,
-            'name': userName
+            'name': name,
+            'username': userName,
+            'password': password
         }
 
-        fetch('http://127.0.0.1:5555/users', {
+        fetch('http://localhost:5555/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formObj)
@@ -48,6 +49,14 @@ function Signup() {
     return (
         <div className="auth-wrapper">
             <form onSubmit={handleSubmit}>
+                <input
+                    placeholder='Name'
+                    type="text"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                />
+
                 <input
                     placeholder='Username'
                     type="text"

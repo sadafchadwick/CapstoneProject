@@ -30,7 +30,7 @@ function Home() {
                 <div>
                     <h3>Welcome Back, {user.name}!</h3>
                     {/* <h4>User ID: {user.id}</h4> */}
-                    <h4>User Name: {user.user_name}</h4>
+                    <h4>User Name: {user.username}</h4>
                     {/* {editUser ?
                         <div>
                             <EditUser setEditUser={setEditUser}/>
@@ -46,13 +46,13 @@ function Home() {
                 <div>
                     {loginSignup ?
                         <div>
-                            <h4>Please Login</h4>
+                            {/* <h4>Please Login</h4> */}
                             <Login setUser={setUser} />
                             <Button variant='outline-warning' onClick={handleLoginSignup}>Click here to Sign Up!</Button>
                         </div>
                         :
                         <div>
-                            <h4>Please Sign Up</h4>
+                            {/* <h4>Please Sign Up</h4> */}
                             <Signup setUser={setUser} />
                             <Button variant='outline-warning' onClick={handleLoginSignup}>Click here to Login!</Button>
                         </div>
