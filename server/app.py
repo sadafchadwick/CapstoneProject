@@ -1,8 +1,8 @@
 from models import User, Food, UserFood
 from flask import Flask, request, make_response, session
-from flask_migrate import Migrate
+# from flask_migrate import Migrate
 from flask_restful import Resource
-from config import app, api, db, CORS
+from config import app, api, db, CORS, migrate
 
 
 
@@ -13,7 +13,7 @@ def index():
 class Login(Resource):
     def post(self):
         data = request.get_json()
-        user = User.query.filter(User.username == data['userName']).first()
+        user = User.query.filter(User.username == data['username']).first()
         if not user:
             return make_response({'error': 'Username not found!'}, 404)
         else:

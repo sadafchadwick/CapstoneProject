@@ -6,10 +6,11 @@ const NavBar = () => {
     // const navigate = useNavigate()
     return (
     <nav>
-        <NavLink to="/">HOME</NavLink>
+        <NavLink className= "glow" href="#" to="/">HOME</NavLink>
         <NavLink to="/inventory">My Stockpile</NavLink>
         <NavLink to="/medicaldocs">Survival Documents</NavLink>
         <NavLink to="/senarios">Senarios</NavLink>
+        <div className='hovernav-bar'></div>
     </nav>
     )
 }

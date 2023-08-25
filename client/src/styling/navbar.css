@@ -1,4 +1,61 @@
-.glow-on-hover {
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&display=swap');
+.hovernav-bar {
+  width: 100%; /* Full-width - reduce if you want it shorter */
+  background-color: transparent; 
+  overflow: auto; /* Overflow due to float */
+}
+* {
+margin: 0;
+padding: 0;
+font-family: 'Space Grotesk', sans-serif;
+color: white;
+}
+body {
+  background: #000;
+}
+.hovernav-bar a {
+  float: left; /* Float links side by side */
+  text-align: center; /* Center-align text */
+  width: 18%; /* Equal width (5 icons with 18% width each = 90%) */
+  padding: 10px 0; /* Some top and bottom padding */
+  transition: all 0.5s ease; /* Add transition for hover effects */
+  color: white; /* White text color */
+  font-size: 22px; /* Increased font size */
+  text-decoration: none; /* Removes underlining fro link text*/
+}
+
+.hovernav-bar a:hover {
+  color: #000; /* Add a hover color */
+}
+
+
+.active {
+  background-color: #000; /* Add an active/current color */
+opacity: 0.7;
+border-radius: 10px;
+border: 1px solid #0000FF;
+}
+
+
+.glow {
+  font-size: 20px;
+  color: #fff;
+  text-align: center;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #00f, 0 0 20px #00f, 0 0 25px #00f, 0 0 30px #00f, 0 0 35px #00f;
+  }
+  
+  to {
+    text-shadow: 0 0 5px #fff, 0 0 5px #00aaFF, 0 0 5px #00aaFF, 0 0 5px #00aaFF, 0 0 5px #00aaFF, 0 0 5px #00aaFF, 0 0 5px #00aaFF;
+  }
+}
+
+
+/* .glow-on-hover {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -61,4 +118,4 @@ button {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     text-align: center;
 
-}
+} */

@@ -25,11 +25,9 @@ function Home() {
 
     return (
         <div>
-            <h2>SIGN UP OR LOGIN IN!</h2>
             {user ? 
                 <div>
                     <h3>Welcome Back, {user.name}!</h3>
-                    {/* <h4>User ID: {user.id}</h4> */}
                     <h4>User Name: {user.username}</h4>
                     {/* {editUser ?
                         <div>

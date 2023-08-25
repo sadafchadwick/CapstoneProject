@@ -3,11 +3,14 @@ body{
   padding: 0;
   font-family: Arial, sans-serif;
   background-color: #1d8a5b1d; /* Dark background color */
-  background-image: url('https://www.iwp.edu/wp-content/uploads/2022/01/apocalypse.jpg'); /* Replace with your image */
-  background-size: auto auto;
+  background-image: url('https://img.freepik.com/free-photo/electricity-nature-collide-spooky-silhouette-dusk-generative-ai_188544-12558.jpg?t=st=1692972107~exp=1692975707~hmac=9603fd41fcc2ed8f53ebf597631ea15920dbcb9690ceba955e67840354a6c99b&w=1480'); /* Replace with your image*/
+  background-size: cover;
   background-position: 0% 100%;
   background-blend-mode: hard-light; /* Adjust blending mode for effect */
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: #e6142c; /* Text color */
+  overflow: hidden;
 }
 
 .container {
@@ -46,8 +49,8 @@ body{
 } */
 
 
-/* NAVBAR
-button {
+/* NAVBAR */
+/* button {
   position: relative;
   background-color: #4be069;
   border: none;
