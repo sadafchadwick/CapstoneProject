@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
-import { UserContext } from './UseContext';
+import React, { useContext } from 'react'
+import { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { UserContext } from './UseContext'
 
 function Login() {
     const history = useHistory()
@@ -14,7 +14,7 @@ function Login() {
     function handleSubmit(e) {
         e.preventDefault()
         const formObj = {
-            'userName': userName,
+            'username': userName,
             'password': password
         }
 

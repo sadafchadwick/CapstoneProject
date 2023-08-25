@@ -14,75 +14,55 @@ def index():
 
 class Login(Resource):
     def post(self):
-        username = request.json.get('username')
-        password = request.json.get('password')
-
-        if not username or not password:
-            return {'message': 'Username and password are required'}, 400
-
-        user = User.query.filter_by(username=username).first()
-        if not user or not check_password_hash(user.password_hash, password):
-            return {'message': 'Invalid username or password'}, 401
-        
-        return {'message': 'Login successful', 'user_id': user.id}, 200
+        data = request.get_json()
+        user = User.query.filter(User.user_name == data['userName']).first()
+        if not user:
+            return make_response({'error': 'Username not found!'}, 404)
+        else:
+            if user.authenticate(data['password']):
+                return make_response(user.to_dict(), 200)
+            else:
+                return make_response({'error': 'Password does not match!'}, 404)
 
 api.add_resource(Login, '/login')
 
+class Users(Resource):
+    def get(self):
+        users = User.query.all()
+        serialized_users = [user.to_dict(rules=('-rides','-_password_hash')) for user in users]
+        return make_response(serialized_users, 200)
 
-class Signup(Resource):
     def post(self):
-        username = request.json.get('username')
-        password = request.json.get('password')
-
-        if not username or not password:
-            return {'message': 'Username and password are required'}, 400
-
-        existing_user = User.query.filter_by(username=username).first()
-        if existing_user:
-            return {'message': 'Username already taken'}, 409
-
-        new_user = User(username=username) 
-        new_user.set_password(password)
+        data = request.get_json()
+        try:
+            new_user = User(user_name = data['userName'], password_hash = data['password'], name = data['name'])
+        except Exception as e:
+            return make_response({'error': str(e)}, 404)
         db.session.add(new_user)
         db.session.commit()
+        return make_response(new_user.to_dict(), 200)
+        # return make_response(new_user.to_dict(only = ('id', 'user_name')), 200)
+    
+api.add_resource(Users, '/users')
 
-        return {'message': 'User registered successfully'}, 201
-
-api.add_resource(Signup, '/signup')
-
-
-
-class UsersById(Resource):
+class UserById(Resource):
     def get(self, id):
         user = User.query.filter_by(id=id).first()
         if not user:
-            return make_response({"error":"That username does not exist you banana shaped fork!"},404)
+            return make_response({'error':'User does not exist'}, 404)
         return make_response(user.to_dict())
-
-    def patch(self, id):
-        try:
-            user = User.query.filter_by(id = id).first()
-            data = request.get_json()
-            for attr in data:
-                setattr(user, attr, data[attr])
-            db.session.commit()
-            return make_response(user.to_dict(), 202)
-        except AttributeError:
-            return make_response({"error": "Username was never created!"}, 404)
-        except ValueError:
-            return make_response({"errors": ["validation errors"]}, 400)
-
+    
     def delete(self, id):
         try:
             user = User.query.filter_by(id = id).first()
         except:
-            return make_response({"error": "This user was never created!"}, 404)
+            return make_response({"error": "User does not exist"}, 404)
 
         db.session.delete(user)
         db.session.commit()
         return make_response({}, 204)
-
-api.add_resource(UsersById, '/users/<int:id>')
+    
+api.add_resource(UserById, '/users/<int:id>')
 
 class Foods(Resource):
     def get(self):
@@ -145,3 +125,59 @@ if __name__ == '__main__':
 #         return make_response([user.to_dict() for user in users], 200)
 
 # api.add_resource(Users, '/users')
+
+
+# class Signup(Resource):
+#     def post(self):
+#         username = request.json.get('username')
+#         password = request.json.get('password')
+
+#         if not username or not password:
+#             return {'message': 'Username and password are required'}, 400
+
+#         existing_user = User.query.filter_by(username=username).first()
+#         if existing_user:
+#             return {'message': 'Username already taken'}, 409
+
+#         new_user = User(username=username) 
+#         new_user.set_password(password)
+#         db.session.add(new_user)
+#         db.session.commit()
+
+#         return {'message': 'User registered successfully'}, 201
+
+# api.add_resource(Signup, '/signup')
+
+
+
+# class UsersById(Resource):
+#     def get(self, id):
+#         user = User.query.filter_by(id=id).first()
+#         if not user:
+#             return make_response({"error":"That username does not exist you banana shaped fork!"},404)
+#         return make_response(user.to_dict())
+
+#     def patch(self, id):
+#         try:
+#             user = User.query.filter_by(id = id).first()
+#             data = request.get_json()
+#             for attr in data:
+#                 setattr(user, attr, data[attr])
+#             db.session.commit()
+#             return make_response(user.to_dict(), 202)
+#         except AttributeError:
+#             return make_response({"error": "Username was never created!"}, 404)
+#         except ValueError:
+#             return make_response({"errors": ["validation errors"]}, 400)
+
+#     def delete(self, id):
+#         try:
+#             user = User.query.filter_by(id = id).first()
+#         except:
+#             return make_response({"error": "This user was never created!"}, 404)
+
+#         db.session.delete(user)
+#         db.session.commit()
+#         return make_response({}, 204)
+
+# api.add_resource(UsersById, '/users/<int:id>')

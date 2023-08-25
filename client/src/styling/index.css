@@ -20,6 +20,11 @@ code {
     monospace;
 }
 
+.auth-wrapper{
+  background-image: url('https://www.iwp.edu/wp-content/uploads/2022/01/apocalypse.jpg')
+}
+
+
 /* NAVBAR
 button {
   position: relative;

@@ -3,7 +3,7 @@ import React from 'react';
 
 function Documents(){
     return (
-        <h1></h1>
+        <h1>This is for your documentations!</h1>
     )
 }
 

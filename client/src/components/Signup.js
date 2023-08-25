@@ -2,6 +2,8 @@ import React, { useContext } from 'react';
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from './UseContext';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styling/index.css'
 
 
 function Signup() {
@@ -44,25 +46,27 @@ function Signup() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input
-                placeholder='Username'
-                type="text"
-                id="userName"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
-            />
+        <div className="auth-wrapper">
+            <form onSubmit={handleSubmit}>
+                <input
+                    placeholder='Username'
+                    type="text"
+                    id="userName"
+                    value={userName}
+                    onChange={(e) => setUserName(e.target.value)}
+                />
 
-            <input
-                placeholder='Password'
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-            />
+                <input
+                    placeholder='Password'
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
 
-            <button type="submit">Signup</button>
-        </form>
+                <button type="submit">Signup</button>
+            </form>
+        </div>
     )
 }
 
