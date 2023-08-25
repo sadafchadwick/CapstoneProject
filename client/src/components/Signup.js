@@ -24,7 +24,7 @@ function Signup() {
             'password': password
         }
 
-        fetch('http://localhost:5555/users', {
+        fetch('/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formObj)

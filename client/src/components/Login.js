@@ -9,7 +9,7 @@ function Login() {
     const [userName, setUserName] = useState('')
     const [password, setPassword] = useState('')
 
-    const { setUser } = useContext(UserContext)
+    const { user, setUser } = useContext(UserContext)
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -18,7 +18,7 @@ function Login() {
             'password': password
         }
 
-        fetch('http://localhost:5555/login', {
+        fetch('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formObj)
@@ -27,8 +27,9 @@ function Login() {
                 if (r.ok) {
                     r.json()
                         .then(data => {
-                            history.push('/home')
+                            console.log(data)
                             setUser(data)
+                            history.push('/home')
                         })
                 }
                 else {
@@ -39,7 +40,7 @@ function Login() {
                 }
             })
     }
-
+    console.log(user)
     return (
         <form onSubmit={handleSubmit}>
             <input

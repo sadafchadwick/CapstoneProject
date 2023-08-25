@@ -1,6 +1,5 @@
 from models import User, Food, UserFood
 from flask import Flask, request, make_response, session
-# from flask_migrate import Migrate
 from flask_restful import Resource
 from config import app, api, db, CORS, migrate
 
@@ -18,16 +17,37 @@ class Login(Resource):
             return make_response({'error': 'Username not found!'}, 404)
         else:
             if user.authenticate(data['password']):
+                session['user_id'] = user.id
+                print(session.get('user_id'))
                 return make_response(user.to_dict(), 200)
             else:
                 return make_response({'error': 'Password does not match!'}, 404)
 
 api.add_resource(Login, '/login')
 
+class Logout(Resource):
+    def delete(self):
+        session['user_id'] = None
+        return make_response({'message':'You have been successfully logged out!'}, 204)
+    
+api.add_resource(Logout, '/logout')
+
+class CheckSession(Resource):
+    def get(self):
+        print(session.get('user_id'))
+        user = User.query.filter(User.id == session.get('user_id')).first()
+        if not user:
+            return make_response({'error': 'User is not authorized to enter!'}, 401)
+        else:
+            return make_response(user.to_dict(), 200)
+        
+api.add_resource(CheckSession, '/check_session')
+
+
 class Users(Resource):
     def get(self):
         users = User.query.all()
-        serialized_users = [user.to_dict(rules=('-rides','-_password_hash')) for user in users]
+        serialized_users = [user.to_dict(rules=('-foods','-_password_hash')) for user in users]
         return make_response(serialized_users, 200)
 
     def post(self):

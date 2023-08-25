@@ -1,15 +1,19 @@
-body{
+body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #1d8a5b1d; /* Dark background color */
-  background-image: url('https://img.freepik.com/free-photo/electricity-nature-collide-spooky-silhouette-dusk-generative-ai_188544-12558.jpg?t=st=1692972107~exp=1692975707~hmac=9603fd41fcc2ed8f53ebf597631ea15920dbcb9690ceba955e67840354a6c99b&w=1480'); /* Replace with your image*/
+  background-color: #1d8a5b1d;
+  /* Dark background color */
+  background-image: url('https://img.freepik.com/free-photo/electricity-nature-collide-spooky-silhouette-dusk-generative-ai_188544-12558.jpg?t=st=1692972107~exp=1692975707~hmac=9603fd41fcc2ed8f53ebf597631ea15920dbcb9690ceba955e67840354a6c99b&w=1480');
+  /* Replace with your image*/
   background-size: cover;
   background-position: 0% 100%;
-  background-blend-mode: hard-light; /* Adjust blending mode for effect */
+  background-blend-mode: hard-light;
+  /* Adjust blending mode for effect */
   background-repeat: no-repeat;
   background-attachment: fixed;
-  color: #e6142c; /* Text color */
+  color: #e6142c;
+  /* Text color */
   overflow: hidden;
 }
 
@@ -22,7 +26,7 @@ body{
 
 
 /* :root { */
-  /* --bg: #282c34;
+/* --bg: #282c34;
   /* --header: #fff;
   --link: #61dafb;
   --text: hsla(0, 0%, 100%, 0.88);

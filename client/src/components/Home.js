@@ -15,9 +15,12 @@ function Home() {
     }
 
     const handleLogOut = (e) => {
-        setUser(null)
+        fetch('/logout', {
+            method: 'DELETE',
+        })
+        .then(()=>setUser(null))
     }
-    
+
     // const handleEdit = (e) => {
     //     console.log('edit name')
     //     setEditUser(true)
@@ -25,7 +28,7 @@ function Home() {
 
     return (
         <div>
-            {user ? 
+            {user ?
                 <div>
                     <h3>Welcome Back, {user.name}!</h3>
                     <h4>User Name: {user.username}</h4>
@@ -40,7 +43,7 @@ function Home() {
                     } */}
                     <button onClick={handleLogOut}>Sign Out</button>
                 </div>
-                : 
+                :
                 <div>
                     {loginSignup ?
                         <div>
