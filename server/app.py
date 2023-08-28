@@ -45,19 +45,13 @@ api.add_resource(CheckSession, '/check_session')
 class Signup(Resource):
     def post(self):
         data = request.get_json()
-        # name = data.get('name')
-        # username = data.get('username')
-        # password_hash = data.get('password')
         try:
             new_user = User(name = data['name'], username = data['username'], password_hash = data['password'] )
         except Exception as e:
             return make_response({'error': str(e)}, 404)
-        # if User.query.filter_by(username=username).first():
-        #     return {'message': 'Username already exists! Be original for once!'}
-        # new_user = User(name=name, username=username, password_hash=password)
         db.session.add(new_user)
         db.session.commit()
-        session.get['user_id']=new_user.id
+        session['user_id']=new_user.id
         return make_response(new_user.to_dict(), 201)
     
 api.add_resource(Signup, '/signups')

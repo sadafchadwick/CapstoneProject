@@ -7,13 +7,13 @@ import Documents from './Documents';
 import Senarios from './Scenarios';
 import NotFound from './NotFound';
 import Profile from './Profile'
+import MyStockpile from './MyStockpile'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { UserContext, UserProvider } from './UseContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {
-    //here for useContext
     const { user, setUser } = useContext(UserContext)
     
     useEffect(()=>{
@@ -24,6 +24,7 @@ function App() {
             }
         })
     },[setUser])
+
 
     console.log(user)
     return (
@@ -38,6 +39,9 @@ function App() {
                     </Route>
                     <Route exact path="/inventory">
                         <Inventory />
+                    </Route>
+                    <Route exact path="/mystockpile">
+                        <MyStockpile />
                     </Route>
                     <Route exact path="/documents">
                         <Documents />

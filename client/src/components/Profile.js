@@ -6,11 +6,6 @@ function Profile() {
     const [newName, setNewName] = useState('')
     const [newUsername, setNewUsername] = useState('')
     const [newPassword, setNewPassword] = useState('')
-    // const username = user.username
-
-    // useEffect(() => {
-    //     return username
-    // }, [])
 
     const handleLogOut = (e) => {
         setUser(null)

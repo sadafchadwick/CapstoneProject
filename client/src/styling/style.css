@@ -30,7 +30,7 @@ body {
 }
 
 label {
-    color: #fff;
+    color: #bf1111;
     font-size: 2.3em;
     justify-content: center;
     display: flex;
@@ -43,7 +43,7 @@ label {
 input {
     width: 60%;
     height: 20px;
-    background: #e0dede;
+    background-color: #c01e1e;
     justify-content: center;
     display: flex;
     margin: 20px auto;
@@ -59,7 +59,7 @@ button {
     margin: 10px auto;
     justify-content: center;
     display: block;
-    color: #fff;
+    color: #6b0505;
     background: #573b8a;
     font-size: 1em;
     font-weight: bold;
@@ -77,7 +77,7 @@ button:hover {
 
 .login {
     height: 460px;
-    background: #eee;
+    background: #671111;
     border-radius: 60% / 10%;
     transform: translateY(-180px);
     transition: 0.8s ease-in-out;

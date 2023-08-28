@@ -18,3 +18,10 @@ python -c 'import os; print(os.urandom(16))'
 
 
 for models db string additions: collate='NOCASE', unique=True
+
+
+
+
+            <button onClick={handleEditName}> Edit your item name.</button>
+            <button onClick={handleEditCategory}>Edit category type.</button>
+            <button onClick={handleEditAmount}>Edit amount of item.</button>
