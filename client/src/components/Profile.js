@@ -102,11 +102,8 @@ function Profile() {
             })
                 .then(response => {
                     if (response.ok) {
-                        // Handle successful deletion, e.g., show a success message
                         console.log('Your account was deleted successfully.');
-                        // Perform any additional actions after deletion if needed
                     } else {
-                        // Handle error, e.g., show an error message
                         console.error('Error deleting user.');
                     }
                 })
