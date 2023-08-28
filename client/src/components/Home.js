@@ -28,19 +28,12 @@ function Home() {
 
     return (
         <div>
+        <h1>Ready, Set, Survive....be prepared for every catastrophe!</h1>
+        <h3>Sign up or login </h3>
             {user ?
                 <div>
                     <h3>Welcome Back, {user.name}!</h3>
                     <h4>User Name: {user.username}</h4>
-                    {/* {editUser ?
-                        <div>
-                            <EditUser setEditUser={setEditUser}/>
-                        </div>
-                        :
-                        <div>
-                            <button onClick={handleEdit}>Edit User</button>
-                        </div>
-                    } */}
                     <button onClick={handleLogOut}>Sign Out</button>
                 </div>
                 :

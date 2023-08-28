@@ -14,12 +14,12 @@ class User( db.Model, SerializerMixin ):
     username = db.Column(db.String)
     _password_hash = db.Column(db.String, nullable = False)
 
-# , collate='NOCASE', unique=True
 
-    userfoods = db.relationship('UserFood', back_populates='user')
-    foods = association_proxy('userfoods', 'food')
 
-    serialize_rules = ('-userfoods.user', '-foods.users',)
+    inventories = db.relationship('Inventory', back_populates='user')
+    categories = association_proxy('inventories', 'category')
+
+    serialize_rules = ('-inventories.user', '-categories.users',)
 
     @property
     def password_hash(self):
@@ -37,74 +37,27 @@ class User( db.Model, SerializerMixin ):
         return bcrypt.check_password_hash(self._password_hash, enc_password)
 
 
-class Food (db.Model, SerializerMixin):
-    __tablename__ = 'foods'
+class Category (db.Model, SerializerMixin):
+    __tablename__ = 'categories'
 
     id = db.Column (db.Integer, primary_key=True)
     name = db.Column(db.String)
-    amount = db.Column(db.Integer)
+
+    inventories = db.relationship('Inventory', back_populates='category')
+    users = association_proxy ('inventories', 'user')
+
+    serialize_rules = ('-inventories.category', '-users.category',)
 
 
-    userfoods = db.relationship('UserFood', back_populates='food')
-    users = association_proxy ('userfoods', 'user')
-
-    serialize_rules = ('-userfoods.food', '-users.foods',)
-
-
-class UserFood (db.Model, SerializerMixin):
-    __tablename__ = 'userfoods'
+class Inventory (db.Model, SerializerMixin):
+    __tablename__ = 'inventories'
 
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String)
+    amount = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    food_id = db.Column(db.Integer, db.ForeignKey('foods.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
 
-    user = db.relationship('User', back_populates='userfoods')
-    food = db.relationship ('Food', back_populates='userfoods')
-
-    serialize_rules = ('-user.userfoods', '-food.userfoods',)
-
-# from flask_sqlalchemy import SQLAlchemy
-# from werkzeug.security import generate_password_hash, check_password_hash
-
-# db = SQLAlchemy()
-
-# class User(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     username = db.Column(db.String(50), unique=True, nullable=False)
-#     password_hash = db.Column(db.String(128), nullable=False)
-
-#     # Define relationships
-#     foods = db.relationship('Food', backref='user', lazy=True)
-#     weapons = db.relationship('Weapon', backref='user', lazy=True)
-#     medical_supplies = db.relationship('MedicalSupply', backref='user', lazy=True)
-#     survival_gear = db.relationship('SurvivalGear', backref='user', lazy=True)
-
-#     def set_password(self, password):
-#         self.password_hash = generate_password_hash(password)
-
-#     def check_password(self, password):
-#         return check_password_hash(self.password_hash, password)
-
-# class Food(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     amount = db.Column(db.Integer, nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-# class Weapon(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     quantity = db.Column(db.Integer, nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-# class MedicalSupply(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     count = db.Column(db.Integer, nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-# class SurvivalGear(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     name = db.Column(db.String(100), nullable=False)
-#     quantity = db.Column(db.Integer, nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user = db.relationship('User', back_populates='inventories')  
+    category = db.relationship ('Category', back_populates='inventories')
+    serialize_rules = ('-user.inventories','-category.inventories',)

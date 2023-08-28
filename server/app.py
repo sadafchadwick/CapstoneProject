@@ -1,4 +1,4 @@
-from models import User, Food, UserFood
+from models import User, Category, Inventory
 from flask import Flask, request, make_response, session
 from flask_restful import Resource
 from config import app, api, db, CORS, migrate
@@ -34,7 +34,6 @@ api.add_resource(Logout, '/logout')
 
 class CheckSession(Resource):
     def get(self):
-        print(session.get('user_id'))
         user = User.query.filter(User.id == session.get('user_id')).first()
         if not user:
             return make_response({'error': 'User is not authorized to enter!'}, 401)
@@ -43,24 +42,35 @@ class CheckSession(Resource):
         
 api.add_resource(CheckSession, '/check_session')
 
-
-class Users(Resource):
-    def get(self):
-        users = User.query.all()
-        serialized_users = [user.to_dict(rules=('-foods','-_password_hash')) for user in users]
-        return make_response(serialized_users, 200)
-
+class Signup(Resource):
     def post(self):
         data = request.get_json()
+        # name = data.get('name')
+        # username = data.get('username')
+        # password_hash = data.get('password')
         try:
             new_user = User(name = data['name'], username = data['username'], password_hash = data['password'] )
         except Exception as e:
             return make_response({'error': str(e)}, 404)
+        # if User.query.filter_by(username=username).first():
+        #     return {'message': 'Username already exists! Be original for once!'}
+        # new_user = User(name=name, username=username, password_hash=password)
         db.session.add(new_user)
         db.session.commit()
-        return make_response(new_user.to_dict(), 200)
+        session.get['user_id']=new_user.id
+        return make_response(new_user.to_dict(), 201)
     
+api.add_resource(Signup, '/signups')
+
+class Users(Resource):
+    def get(self):
+        users = User.query.all()
+        users_data = [{'id':user.id, 'name':user.name, 'username':user.username} for user in users]
+        session.get['user_id']=new_user.id
+        return make_response(users_data, 200) 
+
 api.add_resource(Users, '/users')
+
 
 class UserById(Resource):
     def get(self, id):
@@ -68,6 +78,18 @@ class UserById(Resource):
         if not user:
             return make_response({'error':'User does not exist'}, 404)
         return make_response(user.to_dict())
+    
+    def patch(self, id):
+        user = User.query.get_or_404(user_id)
+        data = request.get_json()
+        if 'name' in data:
+            user.name = data['name']
+        if 'username' in data:
+            user.username = data['username']
+        if 'password' in data:
+            user.password = data['password']
+        db.session.commit()
+        return {'message': 'User updated successfully'}
     
     def delete(self, id):
         try:
@@ -77,55 +99,56 @@ class UserById(Resource):
 
         db.session.delete(user)
         db.session.commit()
+        session['user_id'] = None
         return make_response({}, 204)
     
 api.add_resource(UserById, '/users/<int:id>')
 
-class Foods(Resource):
+class Categories(Resource):
     def get(self):
-        foods = Food.query.all()
-        return make_response([food.to_dict(only =('id', 'name', 'amount',)) for food in foods], 200)
+        categories = Category.query.all()
+        return make_response([category.to_dict(only =('id', 'name', )) for category in categories], 200)
 
-api.add_resource(Foods, '/foods')
+api.add_resource(Categories, '/categories')
 
-class FoodsById(Resource):
+class CategoriesById(Resource):
     def get(self, id):
-        food = Food.query.filter_by(id=id).first()
-        if not food:
-            return make_response({"error":"That food does not exist you banana shaped fork!"},404)
-        return make_response(food.to_dict())
+        category = Category.query.filter_by(id=id).first()
+        if not category:
+            return make_response({"error":"That category does not exist!"},404)
+        return make_response(category.to_dict())
 
     def patch(self, id):
         try:
-            food = Food.query.filter_by(id = id).first()
+            category = Category.query.filter_by(id = id).first()
             data = request.get_json()
             for attr in data:
-                setattr(food, attr, data[attr])
+                setattr(category, attr, data[attr])
             db.session.commit()
-            return make_response(food.to_dict(), 202)
+            return make_response(category.to_dict(), 202)
         except AttributeError:
-            return make_response({"error": "Food was never entered!"}, 404)
+            return make_response({"error": "category was never entered!"}, 404)
         except ValueError:
             return make_response({"errors": ["validation errors"]}, 400)
 
     def delete(self, id):
         try:
-            user = Food.query.filter_by(id = id).first()
+            user = Category.query.filter_by(id = id).first()
         except:
-            return make_response({"error": "This food was never entered!"}, 404)
+            return make_response({"error": "This category was never entered!"}, 404)
 
-        db.session.delete(food)
+        db.session.delete(category)
         db.session.commit()
         return make_response({}, 204)
 
-api.add_resource(FoodsById, '/foods/<int:id>')
+api.add_resource(CategoriesById, '/categories/<int:id>')
 
-class UserFoods(Resource):
+class Inventories(Resource):
     def get(self):
-        userfoods = UserFood.query.all()
-        return make_response([userfood.to_dict() for userfood in userfoods], 200)
+        inventories = Inventory.query.all()
+        return make_response([inventory.to_dict() for inventory in inventories], 200)
 
-api.add_resource(UserFoods, '/userfoods')
+api.add_resource(Inventories, '/inventories')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True )

@@ -1,18 +1,18 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-
+import '../styling/navbar.css';
 
 const NavBar = () => {
-    // const navigate = useNavigate()
     return (
-        <nav>
-            <NavLink className="glow" href="#" to="/">HOME</NavLink>
-            <NavLink to="/inventory">My Stockpile</NavLink>
-            <NavLink to="/medicaldocs">Survival Documents</NavLink>
-            <NavLink to="/senarios">Senarios</NavLink>
-            <div className='hovernav-bar'></div>
-        </nav>
+        <div className='hovernav-bar'>
+            <nav className='nav-list'>
+                <a className='glow' href="/profile">Profile</a>
+                <a className='glow' href="/inventory">My Stockpile</a>
+                <a className='glow' href="/documents">Survival Documents</a>
+                <a className='glow' href="/scenarios">Scenarios</a>
+            </nav>
+        </div>
     )
 }
 
-export default NavBar;
+export default NavBar

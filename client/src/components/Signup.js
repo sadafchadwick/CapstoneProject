@@ -10,7 +10,7 @@ function Signup() {
 
     const history = useHistory()
 
-    const [userName, setUserName] = useState('')
+    const [username, setUsername] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
 
@@ -20,11 +20,11 @@ function Signup() {
         e.preventDefault();
         const formObj = {
             'name': name,
-            'username': userName,
+            'username': username,
             'password': password
         }
 
-        fetch('/users', {
+        fetch('/signups', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formObj)
@@ -60,9 +60,9 @@ function Signup() {
                 <input
                     placeholder='Username'
                     type="text"
-                    id="userName"
-                    value={userName}
-                    onChange={(e) => setUserName(e.target.value)}
+                    id="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                 />
 
                 <input

@@ -6,7 +6,7 @@ import { UserContext } from './UseContext'
 function Login() {
     const history = useHistory()
 
-    const [userName, setUserName] = useState('')
+    const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
 
     const { user, setUser } = useContext(UserContext)
@@ -14,7 +14,7 @@ function Login() {
     function handleSubmit(e) {
         e.preventDefault()
         const formObj = {
-            'username': userName,
+            'username': username,
             'password': password
         }
 
@@ -29,7 +29,7 @@ function Login() {
                         .then(data => {
                             console.log(data)
                             setUser(data)
-                            history.push('/home')
+                            history.push('/profile')
                         })
                 }
                 else {
@@ -46,9 +46,9 @@ function Login() {
             <input
                 placeholder='Username'
                 type="text"
-                id="userName"
-                value={userName}
-                onChange={(e) => setUserName(e.target.value)}
+                id="username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
             />
             <input
                 placeholder='Password'
