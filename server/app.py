@@ -80,7 +80,7 @@ class UserById(Resource):
         return make_response(user.to_dict())
     
     def patch(self, id):
-        user = User.query.get_or_404(user_id)
+        user = User.query.get_or_404(id)
         data = request.get_json()
         if 'name' in data:
             user.name = data['name']

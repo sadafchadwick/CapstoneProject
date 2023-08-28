@@ -61,3 +61,9 @@ class Inventory (db.Model, SerializerMixin):
     user = db.relationship('User', back_populates='inventories')  
     category = db.relationship ('Category', back_populates='inventories')
     serialize_rules = ('-user.inventories','-category.inventories',)
+    
+class Scenario(db.Model, SerializerMixin):
+    __tablename__ = 'scenarios'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    

@@ -39,7 +39,7 @@ function App() {
                     <Route exact path="/inventory">
                         <Inventory />
                     </Route>
-                    <Route exact path="/medicaldocs">
+                    <Route exact path="/documents">
                         <Documents />
                     </Route>
                     <Route exact path="/scenarios">
