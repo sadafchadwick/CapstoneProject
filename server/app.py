@@ -1,9 +1,7 @@
-from models import User, Category, Inventory
+from models import User, Item, Inventory
 from flask import Flask, request, make_response, session
 from flask_restful import Resource
 from config import app, api, db, CORS, migrate
-
-
 
 @app.route('/')
 def index():
@@ -18,7 +16,6 @@ class Login(Resource):
         else:
             if user.authenticate(data['password']):
                 session['user_id'] = user.id
-                print(session.get('user_id'))
                 return make_response(user.to_dict(), 200)
             else:
                 return make_response({'error': 'Password does not match!'}, 404)
@@ -51,6 +48,7 @@ class Signup(Resource):
             return make_response({'error': str(e)}, 404)
         db.session.add(new_user)
         db.session.commit()
+        # allows to login user after successful signup
         session['user_id']=new_user.id
         return make_response(new_user.to_dict(), 201)
     
@@ -60,11 +58,9 @@ class Users(Resource):
     def get(self):
         users = User.query.all()
         users_data = [{'id':user.id, 'name':user.name, 'username':user.username} for user in users]
-        session.get['user_id']=new_user.id
         return make_response(users_data, 200) 
 
 api.add_resource(Users, '/users')
-
 
 class UserById(Resource):
     def get(self, id):
@@ -137,12 +133,12 @@ class CategoriesById(Resource):
 
 api.add_resource(CategoriesById, '/categories/<int:id>')
 
-class Inventories(Resource):
+class Items(Resource):
     def get(self):
-        inventories = Inventory.query.all()
-        return make_response([inventory.to_dict() for inventory in inventories], 200)
+        items = Item.query.all()
+        return make_response([item.to_dict() for item in items], 200)
 
-api.add_resource(Inventories, '/inventories')
+api.add_resource(Items, '/items')
 
 if __name__ == '__main__':
     app.run(port=5555, debug=True )

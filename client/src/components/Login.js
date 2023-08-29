@@ -18,7 +18,7 @@ function Login() {
             'password': password
         }
 
-        fetch('/login', {
+        fetch ('/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formObj)
@@ -27,7 +27,6 @@ function Login() {
                 if (r.ok) {
                     r.json()
                         .then(data => {
-                            console.log(data)
                             setUser(data)
                             history.push('/profile')
                         })
@@ -40,7 +39,7 @@ function Login() {
                 }
             })
     }
-    console.log(user)
+
     return (
         <form onSubmit={handleSubmit}>
             <input

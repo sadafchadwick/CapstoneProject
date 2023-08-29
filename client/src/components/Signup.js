@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from './UseContext';
+import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/index.css'
 
@@ -33,8 +33,9 @@ function Signup() {
                 if (r.ok) {
                     r.json()
                         .then(data => {
-                            history.push('/home')
+                            history.push('/profile')
                             setUser(data)
+                            window.confirm('Signed up successfully')
                         })
                 }
                 else {

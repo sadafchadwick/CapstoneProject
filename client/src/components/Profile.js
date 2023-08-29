@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { UserContext } from './UseContext'
 
 function Profile() {
@@ -6,9 +7,12 @@ function Profile() {
     const [newName, setNewName] = useState('')
     const [newUsername, setNewUsername] = useState('')
     const [newPassword, setNewPassword] = useState('')
+    const history = useHistory()
 
     const handleLogOut = (e) => {
         setUser(null)
+        history.push('/login')
+        window.confirm('Logged out successfully')
     }
 
     const handleNameChange = event => {
@@ -29,11 +33,14 @@ function Profile() {
             if (response.ok) {
                 setUser(prevUser => ({ ...prevUser, name: newName }));
                 setNewName('');
+                window.confirm('Name updated successfully')
             } else {
                 console.error('Failed to update name');
+                window.confirm('Failed to update name')
             }
         } catch (error) {
             console.error('Error updating name:', error);
+            window.confirm('Error updating name:', error)
         }
     };
 
@@ -55,11 +62,14 @@ function Profile() {
             if (response.ok) {
                 setUser(prevUser => ({ ...prevUser, username: newUsername }));
                 setNewUsername('');
+                window.confirm('Username updated successfully')
             } else {
-                console.error('Failed to update username');
+                console.error('Failed to update username')
+                window.confirm('Failed to update username');
             }
         } catch (error) {
             console.error('Error updating username:', error);
+            window.confirm('Error updating username:', error)
         }
     };
 
@@ -76,17 +86,20 @@ function Profile() {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ password: newPassword }),
+                body: JSON.stringify({ password_hash: newPassword }),
             });
 
             if (response.ok) {
                 setNewPassword('');
                 console.log('Password changed ')
+                window.confirm('Password updated successfully')
             } else {
                 console.error('Failed to update password');
+                window.confirm('Failed to update password')
             }
         } catch (error) {
             console.error('Error updating Password:', error);
+            window.confirm('Error updating Password:', error)
         }
     };
 
@@ -97,20 +110,24 @@ function Profile() {
             })
                 .then(response => {
                     if (response.ok) {
-                        console.log('Your account was deleted successfully.');
+                        setUser(null)
+                        history.push('signup')
+                        window.confirm('Your account was deleted successfully.');
                     } else {
                         console.error('Error deleting user.');
+                        window.confirm('Error deleting user.')
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    window.confirm('Error:', error)
                 });
         }
     };
 
-
     return (
         <div>
+        
             {user ? (
                 <>
                     <h3>Welcome Back, {user.name}!</h3>
@@ -143,7 +160,8 @@ function Profile() {
                     <button onClick={handleLogOut}>Sign Out</button>
                 </>
             ) : (
-                <p>Loading user data...</p>
+                // history.push('/login')
+                <p>funtimes</p>
             )}
         </div>
     );
