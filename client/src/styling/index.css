@@ -14,7 +14,7 @@ body {
   background-attachment: fixed;
   color: #e6142c;
   /* Text color */
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .container {
@@ -22,8 +22,6 @@ body {
   margin: 0 auto;
   padding: 20px;
 }
-
-
 
 /* :root { */
 /* --bg: #282c34;

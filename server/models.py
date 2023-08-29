@@ -11,11 +11,8 @@ class User( db.Model, SerializerMixin ):
     name = db.Column(db.String)
     username = db.Column(db.String)
     _password_hash = db.Column(db.String, nullable = False)
-
-    inventories = db.relationship('Inventory', back_populates='user')
-    items = association_proxy('inventories', 'item')
-
-    serialize_rules = ('-inventories.user', '-items.users',)
+    
+    inventory = db.relationship('Inventory', back_populates='user', uselist=False, cascade='all,delete-orphan')
 
     @property
     def password_hash(self):
@@ -32,38 +29,28 @@ class User( db.Model, SerializerMixin ):
         enc_password = password.encode('utf-8')
         return bcrypt.check_password_hash(self._password_hash, enc_password)
 
-class Category (db.Model, SerializerMixin):
-    __tablename__ = 'categories'
-
-    id = db.Column (db.Integer, primary_key=True)
-    name = db.Column(db.String)
-
-    items = db.relationship('Item', back_populates='category')
-
-    serialize_rules = ('-items.category',)
-
-#which user has which items:(post, delete, edit, get)
-class Inventory (db.Model, SerializerMixin):
-    __tablename__ = 'inventories'
-
-    id = db.Column(db.Integer, primary_key=True)
-    amount = db.Column(db.Integer)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    item_id = db.Column(db.Integer, db.ForeignKey('items.id'))
-
-    user = db.relationship('User', back_populates='inventories')
-    item = db.relationship ('Item', back_populates = 'inventories')
-    
-    serialize_rules = ('-user.inventories','-items.inventories',)
-
+#each instance of an item (list of items)
 class Item (db.Model, SerializerMixin):
     __tablename__ = 'items'
 
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String)
-    category_id = db.Column(db.Integer, db.ForeignKey('categories.id'))
-
-    category = db.relationship ('Category', back_populates='items')
-    inventories = db.relationship('Inventory', back_populates='item')
+    name = db.Column(db.String, nullable=False)
+    image_url=db.Column(db.String, nullable=True)
+    category = db.Column(db.String, nullable=False)
     
-    serialize_rules = ('-inventories.item','-category.items',)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id')) #who dunit('added by' on the front end)
+    
+    inventories = db.relationship('Inventory', back_populates='item')
+
+#list of amounts of each item for a user
+class Inventory (db.Model, SerializerMixin):
+    __tablename__ = 'inventories'
+
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer, nullable=False, default=0)
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('items.id'), nullable=False)
+    
+    user = db.relationship('User', back_populates='inventory')
+    item = db.relationship('Item', back_populates='inventories')
