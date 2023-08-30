@@ -134,34 +134,46 @@ function Profile() {
 
             {user ? (
                 <>
-                    <h3>Welcome Back, {user.name}!</h3>
-                    <h4>User Name: {user.username}</h4>
-                    <input
-                        placeholder='New Name'
-                        type="text"
-                        id="name"
-                        value={newName}
-                        onChange={handleNameChange}
-                    />
-                    <button onClick={handleUpdateName}>Edit Your Name</button>
-                    <input
-                        placeholder='New Username'
-                        type="text"
-                        id="username"
-                        value={newUsername}
-                        onChange={handleUsernameChange}
-                    />
-                    <button onClick={handleUpdateUsername}>Edit Your Username</button>
-                    <input
-                        placeholder='New Password'
-                        type="text"
-                        id="password"
-                        value={newPassword}
-                        onChange={handlePasswordChange}
-                    />
-                    <button onClick={handleUpdatePassword}>Edit Your Password</button>
-                    <button onClick={handleDelete}>Delete Your Profile</button>
-                    <button onClick={handleLogOut}>Sign Out</button>
+                    <div>
+                        <h2 className='title'>Welcome Back, {user.name}!</h2>
+                        <h3 className='subtitle'>User Name: {user.username}</h3>
+                    </div>
+                    <div className='form'>
+                        <div className='name-form'>
+                            <input
+                                placeholder='New Name'
+                                type="text"
+                                id="name"
+                                value={newName}
+                                onChange={handleNameChange}
+                            />
+                            <button onClick={handleUpdateName}>Edit Your Name</button>
+                        </div>
+                        <div className='username-form'>
+                            <input
+                                placeholder='New Username'
+                                type="text"
+                                id="username"
+                                value={newUsername}
+                                onChange={handleUsernameChange}
+                            />
+                            <button onClick={handleUpdateUsername}>Edit Your Username</button>
+                        </div>
+                        <div className='password-form'>
+                            <input
+                                placeholder='New Password'
+                                type="text"
+                                id="password"
+                                value={newPassword}
+                                onChange={handlePasswordChange}
+                            />
+                            <button onClick={handleUpdatePassword}>Edit Your Password</button>
+                        </div>
+                    </div>
+                    <div className='btn-out'>
+                        <button onClick={handleLogOut}>Sign Out</button>
+                        <button onClick={handleDelete}>Delete Your Profile</button>
+                    </div>
                 </>
             ) : (
                 // history.push('/login')

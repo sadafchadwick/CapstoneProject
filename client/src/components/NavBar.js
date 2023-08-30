@@ -4,16 +4,14 @@ import '../styling/navbar.css';
 
 const NavBar = () => {
     return (
-        <div className='hovernav-bar'>
+        <div className='navbar-container'>
             <nav className='nav-list'>
-                <NavLink to="/profile">Profile</NavLink>
-                <NavLink to="/itemcrate">My Stockpile</NavLink>
-                <NavLink to="/items">Generic items list</NavLink>
-                {/* <NavLink to="/documents">Survival Documents</NavLink> */}
-                {/* <NavLink to="/logout">LogOut</NavLink> */}
+                <NavLink to="/profile" activeClassName="active-link">Profile</NavLink>
+                <NavLink to="/itemcrate" activeClassName="active-link">My Stockpile</NavLink>
+                <NavLink to="/items" activeClassName="active-link">Items list</NavLink>
             </nav>
         </div>
     )
 }
 
-export default NavBar
+export default NavBar;
