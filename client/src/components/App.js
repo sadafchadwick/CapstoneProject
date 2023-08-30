@@ -4,7 +4,6 @@ import Home from './Home';
 import NavBar from './NavBar';
 import Item from './Item';
 import Documents from './Documents';
-import LogOut from './LogOut';
 import NotFound from './NotFound';
 import Profile from './Profile';
 import ItemCrate from './ItemCrate'
@@ -50,9 +49,6 @@ function App() {
                 <Route exact path="/documents">
                     <Documents />
                 </Route>
-                {/* <Route exact path="/home">
-                    <LogOut />
-                </Route> */}
                 <Route path="*">
                     <NotFound />
                 </Route>

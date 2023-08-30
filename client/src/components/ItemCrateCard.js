@@ -20,7 +20,6 @@ function ItemCrateCard({ deletedId, item, handleDelete }) {
             <button onClick={deleteItemCrate}>Delete item from My Stockpile</button>
         </div>
     )
-
 }
 
 export default ItemCrateCard
