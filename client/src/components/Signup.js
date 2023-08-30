@@ -11,6 +11,7 @@ function Signup() {
     const [username, setUsername] = useState('')
     const [name, setName] = useState('')
     const [password, setPassword] = useState('')
+    // const [errors, setErrors] = useState('')
 
     const { setUser } = useContext(UserContext)
 
@@ -27,21 +28,23 @@ function Signup() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(formObj)
         })
-            .then(r => {
-                if (r.ok) {
-                    r.json()
-                        .then(data => {
-                            history.push('/profile')
-                            setUser(data)
-                            window.confirm('Signed up successfully')
-                        })
-                }
-                else {
-                    r.json()
-
-                    // .then((errorMessage) => setErrors(errorMessage.errors));
-                }
-            })
+        .then(r => {
+            if (r.ok) {
+                return r.json().then(data => {
+                    history.push('/profile');
+                    setUser(data);
+                    window.confirm('Signed up successfully');
+                });
+            } else {
+                return r.json().then(data => {
+                    console.log(data);
+                    window.confirm(String(data.error)); // Added String() function
+                });
+            }
+        })
+        .catch(error => {
+            console.error('Error during signup:', error);
+        });
     }
 
     return (
@@ -71,8 +74,8 @@ function Signup() {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <button type="submit">Signup</button>
-{/* *******ASK AMELIA
-                {errors.length > 0
+
+                {/* {errors.length > 0
                         ? errors.map((errorMessage) => (
                         <h5 key={errorMessage} className='error-message'>
                         {errorMessage}
