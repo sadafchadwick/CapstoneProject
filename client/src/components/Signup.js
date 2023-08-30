@@ -1,13 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { UserContext } from './UseContext';
-import Form from 'react-bootstrap/Form';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styling/index.css'
 
 
 function Signup() {
-
     const history = useHistory()
 
     const [username, setUsername] = useState('')

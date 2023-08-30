@@ -1,27 +1,27 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import ItemCard from './ItemCard';
 
-function Item(){
+function Item() {
     const [allItem, setAllItem] = useState([])
 
     useEffect(() => {
-        fetch ('/items')
-        .then(r =>r.json())
-        .then(allItem => {
-            setAllItem(allItem)
-        })
+        fetch('/items')
+            .then(r => r.json())
+            .then(allItem => {
+                setAllItem(allItem)
+            })
     }, [])
 
-    const itemCards =  allItem.map((item) => (
+    const itemCards = allItem.map((item) => (
         <ItemCard
             key={item.id}
-            item = {item}
+            item={item}
         />
     ))
 
     return (
         <div>
-            {itemCards }
+            {itemCards}
         </div>
     )
 }

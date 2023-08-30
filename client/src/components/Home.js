@@ -16,13 +16,13 @@ function Home() {
         fetch('/logout', {
             method: 'DELETE',
         })
-        .then(()=>setUser(null))
+            .then(() => setUser(null))
     }
 
     return (
         <div>
-        <h1>Ready, Set, Survive</h1>
-        <h3>....be prepared for every catastrophe!</h3>
+            <h1>Ready, Set, Survive</h1>
+            <h3>....be prepared for every catastrophe!</h3>
             {user ?
                 <div>
                     <h3>Welcome Back, {user.name}!</h3>
@@ -39,7 +39,7 @@ function Home() {
                         </div>
                         :
                         <div>
-                        <h1>Sign up today!</h1>
+                            <h1>Sign up today!</h1>
                             <Signup setUser={setUser} />
                             <Button variant='outline-warning' onClick={handleLoginSignup}>Click here to Login!</Button>
                         </div>

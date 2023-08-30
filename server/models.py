@@ -12,8 +12,10 @@ class User( db.Model, SerializerMixin ):
     username = db.Column(db.String)
     _password_hash = db.Column(db.String, nullable = False)
     
-    inventory = db.relationship('Inventory', back_populates='user', uselist=False, cascade='all,delete-orphan')
+    itemcrate = db.relationship('ItemCrate', back_populates='user', uselist=False, cascade='all,delete-orphan')
 
+    serialize_rules = ('-_password_hash',)
+    
     @property
     def password_hash(self):
         return self._password_hash
@@ -40,11 +42,13 @@ class Item (db.Model, SerializerMixin):
     
     user_id = db.Column(db.Integer, db.ForeignKey('users.id')) #who dunit('added by' on the front end)
     
-    inventories = db.relationship('Inventory', back_populates='item')
+    itemcrates = db.relationship('ItemCrate', back_populates='item')
+    
+    serialize_rules = ('-itemcrates',)
 
-#list of amounts of each item for a user
-class Inventory (db.Model, SerializerMixin):
-    __tablename__ = 'inventories'
+#list of amounts of each item for each user
+class ItemCrate (db.Model, SerializerMixin):
+    __tablename__ = 'itemcrates'
 
     id = db.Column(db.Integer, primary_key=True)
     quantity = db.Column(db.Integer, nullable=False, default=0)
@@ -52,5 +56,7 @@ class Inventory (db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'), nullable=False)
     
-    user = db.relationship('User', back_populates='inventory')
-    item = db.relationship('Item', back_populates='inventories')
+    user = db.relationship('User', back_populates='itemcrate')
+    item = db.relationship('Item', back_populates='itemcrates')
+    
+    serialize_rules = ('-item.itemcrates', '-user.itemcrate')

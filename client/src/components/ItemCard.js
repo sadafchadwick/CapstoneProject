@@ -1,7 +1,7 @@
 import React from 'react';
 import '../styling/itemcard.css'
 
-function ItemCard({item}) {
+function ItemCard({ item }) {
 
 
     const addItem = () => {

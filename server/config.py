@@ -34,11 +34,11 @@ CORS(app, origins=["http://localhost:3000"])
 
 
 #this is creating a secret key for session to be used:
-def get_secret_key_from_file(file_path):
-    with open (file_path, 'rb') as f:
-        secret_key = f.read().strip()
-    return secret_key
+# def get_secret_key_from_file(file_path):
+#     with open (file_path, 'rb') as f:
+#         secret_key = f.read().strip()
+#     return secret_key
 
-app.secret_key = get_secret_key_from_file('secretkey.env')
+# app.secret_key = get_secret_key_from_file('secretkey.env')
 
-# app.secret_key = b'B/\xf4\rGD\xd8)\x90!\x123A\x85\x13\xfc'
+app.secret_key = b'B/\xf4\rGD\xd8)\x90!\x123A\x85\x13\xfc'

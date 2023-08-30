@@ -1,38 +1,39 @@
 import React from 'react';
+import { useState, useEffect } from 'react'
 
-function Inventory() {
-    const [allItem, setAllItem] = useState([])
+function ItemCrate() {
+    const [allItemCrates, setAllItemCrates] = useState([])
 
     const deleteItem = (deletedId) => {
-        fetch('/inventories/${deletedId}',
+        fetch('/itemcrates/${deletedId}',
             { method: 'DELETE' })
             .then(() => console.log("this is deleted"))
             .catch(error => console.error('Error:', error))
     }
 
     useEffect(() => {
-        fetch('/items')
+        fetch('/itemcrates')
             .then(r => r.json())
-            .then(allItem => {
-                setAllItem(allItem)
+            .then(allItemCrates => {
+                setAllItemCrates(allItemCrates)
             })
     }, [])
 
-    const addItem = () => {
+    const addItemCrate = () => {
         console.log('i work')
     }
 
 
-    const inventoryCards = allInventory.map((inventory) => (
-        <InventoryCard
-            key={inventory.id}
-            inventory={inventory}
+    const itemCrateCards = allItemCrates.map((itemcrate) => (
+        <ItemCrate
+            key={itemcrate.id}
+            itemcrate={itemcrate}
         />
     ))
-    
+
     return (
         <div>
-            {itemCards}
+            {itemCrateCards}
         </div>
     )
 }
@@ -51,4 +52,4 @@ function Inventory() {
 // }
 
 
-export default Inventory
+export default ItemCrate

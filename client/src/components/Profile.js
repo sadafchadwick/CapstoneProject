@@ -10,9 +10,13 @@ function Profile() {
     const history = useHistory()
 
     const handleLogOut = (e) => {
-        setUser(null)
-        history.push('/login')
-        window.confirm('Logged out successfully')
+        fetch('/logout', {
+            method: 'DELETE',
+        }).then(() => {
+            setUser(null)
+            window.confirm('Logged out successfully')
+        })
+        history.push('/home')
     }
 
     const handleNameChange = event => {
@@ -127,7 +131,7 @@ function Profile() {
 
     return (
         <div>
-        
+
             {user ? (
                 <>
                     <h3>Welcome Back, {user.name}!</h3>

@@ -7,7 +7,7 @@ const NavBar = () => {
         <div className='hovernav-bar'>
             <nav className='nav-list'>
                 <a className='glow' href="/profile">Profile</a>
-                <a className='glow' href="/inventory">My Stockpile</a>
+                <a className='glow' href="/itemcrate">My Stockpile</a>
                 <a className='glow' href="/items">Generic items list</a>
                 <a className='glow' href="/documents">Survival Documents</a>
                 <a className='glow' href="/scenarios">Scenarios</a>

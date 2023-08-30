@@ -7,7 +7,7 @@ import Documents from './Documents';
 import Senarios from './Scenarios';
 import NotFound from './NotFound';
 import Profile from './Profile';
-import Inventory from './Inventory'
+import ItemCrate from './ItemCrate'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { UserContext } from './UseContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -25,8 +25,6 @@ function App() {
             })
     }, [setUser])
 
-
-    console.log(user)
     return (
         <Router>
             {user ? <NavBar /> : ''}
@@ -46,8 +44,8 @@ function App() {
                 <Route exact path="/items">
                     <Item />
                 </Route>
-                <Route exact path="/inventory">
-                    <Inventory />
+                <Route exact path="/itemcrate">
+                    <ItemCrate />
                 </Route>
                 <Route exact path="/documents">
                     <Documents />
