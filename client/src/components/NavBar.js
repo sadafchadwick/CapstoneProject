@@ -1,16 +1,16 @@
 import React from 'react';
-// import { NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import '../styling/navbar.css';
 
 const NavBar = () => {
     return (
         <div className='hovernav-bar'>
             <nav className='nav-list'>
-                <a className='glow' href="/profile">Profile</a>
-                <a className='glow' href="/itemcrate">My Stockpile</a>
-                <a className='glow' href="/items">Generic items list</a>
-                <a className='glow' href="/documents">Survival Documents</a>
-                <a className='glow' href="/scenarios">Scenarios</a>
+                <NavLink to="/profile">Profile</NavLink>
+                <NavLink to="/itemcrate">My Stockpile</NavLink>
+                <NavLink to="/items">Generic items list</NavLink>
+                <NavLink to="/documents">Survival Documents</NavLink>
+                {/* <NavLink to="/logout">LogOut</NavLink> */}
             </nav>
         </div>
     )

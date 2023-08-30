@@ -38,9 +38,8 @@ function Signup() {
                 }
                 else {
                     r.json()
-                        .then(data => {
-                            console.log(data)
-                        })
+
+                    // .then((errorMessage) => setErrors(errorMessage.errors));
                 }
             })
     }
@@ -71,8 +70,15 @@ function Signup() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-
                 <button type="submit">Signup</button>
+{/* *******ASK AMELIA
+                {errors.length > 0
+                        ? errors.map((errorMessage) => (
+                        <h5 key={errorMessage} className='error-message'>
+                        {errorMessage}
+                        </h5>
+                        ))
+                        : null} */}
             </form>
         </div>
     )

@@ -34,7 +34,7 @@ function Login() {
                 else {
                     r.json()
                         .then(data => {
-                            console.log(data)
+                            console.error('error logging in')
                             window.confirm("Username or password do not match")
                         })
                 }

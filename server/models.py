@@ -16,6 +16,12 @@ class User( db.Model, SerializerMixin ):
 
     serialize_rules = ('-_password_hash',)
     
+    @validates('username')
+    def validate_username(self, key, new_username):
+        if type(new_username) is str and 3 <= len(new_username):
+            return new_username
+        raise ValueError('Username must be 5 characters or longer.')
+    
     @property
     def password_hash(self):
         return self._password_hash

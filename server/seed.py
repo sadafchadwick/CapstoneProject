@@ -2,6 +2,13 @@ from config import db, app
 from models import User, Item, ItemCrate
 from faker import Faker
 
+fake = Faker()
+
+def generate_image_url(image_types=['medical', 'weapon', 'ammunition', 'beverages', 'perishable food', 'non-perishable food', 'clothing', 'cooking supplies', 'radio', 'tool', 'document'], width=150, height=200):
+    image_id = fake.random_int(min=1, max=100)
+    selected_type = fake.random_element(image_types)
+    return f"https://picsum.photos/{width}/{height}?image={image_id}&type={selected_type}"
+
 def seed_data():
     with app.app_context():
         # Create users
@@ -23,27 +30,27 @@ def seed_data():
         items = []
         for category in categories:
             for i in range(10):
-                item_name = f'{category.category.capitalize()} Item {i+1}'
-                item = Item(name=item_name, category=category.category)
+                item_name = f'{category.name.capitalize()} Item {i+1}'  # Use "name" instead of "category"
+                image_url = generate_image_url(image_types=['medical', 'weapon', 'ammunition', 'beverages', 'perishable food', 'non-perishable food', 'clothing', 'cooking supplies', 'radio', 'tool', 'document'])
+                item = Item(name=item_name, category=category.name, image_url=image_url)  # Use "name" instead of "category"
                 items.append(item)
         
-        # Create itemcrate
+        # Create item crates
         itemcrates = []
         for user in users:
             for item in items:
                 itemcrate = ItemCrate(quantity=10, user=user, item=item)
                 itemcrates.append(itemcrate)
-        
-        #Delete database before reseeding
-        User.query.delete()
-        Item.query.delete()
-        ItemCrate.query.delete()
+
+        # Delete existing data before reseeding
+        db.session.query(ItemCrate).delete()
+        db.session.query(Item).delete()
+        db.session.query(User).delete()
         
         # Add data to session and commit to the database
         db.session.add_all(users + categories + items + itemcrates)
         db.session.commit()
 
 if __name__ == '__main__':
-    fake = Faker()
     seed_data()
     print('Database seeded successfully!')
