@@ -4,7 +4,7 @@ from faker import Faker
 
 fake = Faker()
 
-def generate_image_url(image_types=['medical', 'weapon', 'ammunition', 'beverages', 'perishable food', 'non-perishable food', 'clothing', 'cooking supplies', 'radio', 'tool', 'document'], width=150, height=200):
+def generate_image_url(image_types=['medical', 'weapon', 'beverages', 'food', 'clothing', 'cooking supplies', 'radio', 'tool', 'document'], width=200, height=200):
     image_id = fake.random_int(min=1, max=100)
     selected_type = fake.random_element(image_types)
     return f"https://picsum.photos/{width}/{height}?image={image_id}&type={selected_type}"
@@ -31,7 +31,7 @@ def seed_data():
         for category in categories:
             for i in range(10):
                 item_name = f'{category.name.capitalize()} Item {i+1}'  # Use "name" instead of "category"
-                image_url = generate_image_url(image_types=['medical', 'weapon', 'ammunition', 'beverages', 'perishable food', 'non-perishable food', 'clothing', 'cooking supplies', 'radio', 'tool', 'document'])
+                image_url = generate_image_url(image_types=['medical', 'weapon', 'perishable', 'clothing', 'cooking supplies', 'radio', 'tool', 'document'])
                 item = Item(name=item_name, category=category.name, image_url=image_url)  # Use "name" instead of "category"
                 items.append(item)
         

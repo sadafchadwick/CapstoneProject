@@ -12,7 +12,7 @@ class User( db.Model, SerializerMixin ):
     username = db.Column(db.String)
     _password_hash = db.Column(db.String, nullable = False)
     
-    itemcrate = db.relationship('ItemCrate', back_populates='user', uselist=False, cascade='all,delete-orphan')
+    itemcrates = db.relationship('ItemCrate', back_populates='user', cascade='all,delete-orphan')
 
     serialize_rules = ('-_password_hash',)
     
@@ -50,7 +50,7 @@ class Item (db.Model, SerializerMixin):
     
     itemcrates = db.relationship('ItemCrate', back_populates='item')
     
-    serialize_rules = ('-itemcrates',)
+    serialize_rules = ('-itemcrates.item',)
 
 #list of amounts of each item for each user
 class ItemCrate (db.Model, SerializerMixin):
@@ -62,7 +62,7 @@ class ItemCrate (db.Model, SerializerMixin):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     item_id = db.Column(db.Integer, db.ForeignKey('items.id'), nullable=False)
     
-    user = db.relationship('User', back_populates='itemcrate')
+    user = db.relationship('User', back_populates='itemcrates')
     item = db.relationship('Item', back_populates='itemcrates')
     
-    serialize_rules = ('-item.itemcrates', '-user.itemcrate')
+    serialize_rules = ('-item.itemcrates', '-user.itemcrates')

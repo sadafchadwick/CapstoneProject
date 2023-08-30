@@ -112,6 +112,21 @@ class ItemCrates(Resource):
     def get(self):
         itemcrates = ItemCrate.query.all()
         return make_response([itemcrate.to_dict() for itemcrate in itemcrates], 200)
+    
+    def post(self):
+        data = request.get_json()
+        try:
+            new_itemcrate = ItemCrate(
+                quantity = data['quantity'],
+                item_id = data['item_id'],
+                user_id = data['user_id']
+                )
+            
+        except Exception as e:
+            return make_response({'error': str(e)}, 404)
+        db.session.add(new_itemcrate)
+        db.session.commit()
+        return make_response(new_itemcrate.to_dict(), 201)
 
 api.add_resource(ItemCrates, '/itemcrates')
 
@@ -121,14 +136,27 @@ class ItemCrateByUserId(Resource):
             itemcrates = ItemCrate.query.all()
         else:
             itemcrates = ItemCrate.query.filter_by(user_id=user_id).all() 
-        itemcrates_data = [itemcrate.to_dict(only=('quantity','user_id','item.category','item.id','item.name',)) for itemcrate in itemcrates]
+        itemcrates_data = [itemcrate.to_dict() for itemcrate in itemcrates]
         return make_response(itemcrates_data)
+    
+    def delete(self, user_id):
+        try:
+            itemcrate = ItemCrate.query.filter_by(id = user_id).first()
+        except:
+            return make_response({"error": "This item was not deleted!"}, 404)
+        db.session.delete(itemcrate)
+        db.session.commit()
+        return make_response({}, 204)
 
 api.add_resource(ItemCrateByUserId, '/itemcrates/<int:user_id>')
 
-# , '/itemcrates/<int:user_id>/<int:item_id>'
 
 
+
+if __name__ == '__main__':
+    app.run(port=5555, debug=True )
+    
+    
 #     def post(self, user_id):
 #         args = parser_inventory.parse_args()
 #         item_id = args['item_id']
@@ -159,12 +187,6 @@ api.add_resource(ItemCrateByUserId, '/itemcrates/<int:user_id>')
 #             return '', 204  # No content
 #         else:
 #             abort(404, message="Inventory entry not found or does not belong to the user")
-
-
-if __name__ == '__main__':
-    app.run(port=5555, debug=True )
-    
-    
     
 # # class Inventories(Resource):
 # #     def get(self):
@@ -180,17 +202,7 @@ if __name__ == '__main__':
 # #             return make_response({"error":"That inventory item does not exist!"},404)
 # #         return make_response(inventory.to_dict())
     
-#     # def post(self):
-#     #     data = request.get_json()
-#     #     try:
-#     #         new_inventory = Inventory(name = data['name'], username = data['username'], password_hash = data['password'] )
-#     #     except Exception as e:
-#     #         return make_response({'error': str(e)}, 404)
-#     #     db.session.add(new_user)
-#     #     db.session.commit()
-#     #     # allows to login user after successful signup
-#     #     session['user_id']=new_user.id
-#     #     return make_response(new_user.to_dict(), 201)
+
 
 # #     def patch(self, id):
 # #         try:

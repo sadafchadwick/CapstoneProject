@@ -1,45 +1,42 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import '../styling/itemcard.css'
+import { UserContext } from './UseContext';
 
-function ItemCard({ item }) {
-
-
-    const addItem = () => {
-        fetch('/login', {
+function ItemCard({ item, handleUpdate }) {
+    const { user, setUser } = useContext(UserContext);
+    const addItem = (e) => {
+        const data={'user_id': user.id, 'item_id': item.id, 'quantity': 1}
+        fetch('/itemcrates', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formObj)
+            body: JSON.stringify(data)
         })
             .then(r => {
                 if (r.ok) {
                     r.json()
-                        .then(data => {
-                            setUser(data)
+                        .then(itemcrate => {
+                            console.log(itemcrate)
                             window.confirm("Item added to your stockpile")
+                            handleUpdate(itemcrate.item_id)
                         })
                 }
                 else {
                     r.json()
                         .then(data => {
-                            console.error('error logging in')
-                            window.confirm("Username or password do not match")
+                            console.error('Error adding item')
+                            window.confirm("Item failed to add to your stockpile!")
                         })
                 }
             })
-        
     }
-
+    // console.log(user)
     return (
         <div className="card">
-            <h2>{item.name}</h2>
+            <h3>{item.name}</h3>
             <img src={item.image_url}></img>
-            <h3>{item.category.name}</h3>
-            <h3>{item.amount}</h3>
-
+            <h5>{item.category}</h5>
             <button onClick={addItem}>Add item to MyStockpile</button>
         </div>
     )
-
-}
-
+    }
 export default ItemCard

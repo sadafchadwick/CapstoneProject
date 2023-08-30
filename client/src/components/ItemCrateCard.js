@@ -1,25 +1,23 @@
 import React from 'react';
 import '../styling/itemcard.css'
 
-function ItemCrateCard({ itemcrate }) {
+function ItemCrateCard({ deletedId, item, handleDelete }) {
 
-    const deleteItem = (deletedId) => {
-        fetch('/itemcrate/${deletedId}',
+    const deleteItemCrate = () => {
+        fetch(`/itemcrates/${deletedId}`,
             { method: 'DELETE' })
-            .then(() => console.log("this is deleted"))
+            .then(() => console.log("This is deleted"))
             .catch(error => console.error('Error:', error))
-    }
-
-    const addItem = () => {
-        console.log('i work')
+            handleDelete(deletedId)
     }
 
     return (
         <div className="card">
-            <h2>{itemcrate.name}</h2>
-            <h3>{itemcrate.category.name}</h3>
-            <h3>{itemcrate.amount}</h3>
-            <button onClick={addItem}>Add item to MyStockpile</button>
+            <h2>{item?.name}</h2>
+            <img src={item?.image_url}></img>
+            <h5>{item?.category}</h5>
+            <h5>{item?.amount}</h5>
+            <button onClick={deleteItemCrate}>Delete item from My Stockpile</button>
         </div>
     )
 

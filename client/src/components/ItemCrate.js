@@ -1,33 +1,32 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { useState, useEffect } from 'react'
+import { UserContext } from './UseContext';
+import ItemCrateCard from './ItemCrateCard'
 
 function ItemCrate() {
     const [allItemCrates, setAllItemCrates] = useState([])
+    const { user, setUser } = useContext(UserContext);
 
-    const deleteItem = (deletedId) => {
-        fetch('/itemcrates/${deletedId}',
-            { method: 'DELETE' })
-            .then(() => console.log("this is deleted"))
-            .catch(error => console.error('Error:', error))
-    }
 
     useEffect(() => {
-        fetch('/itemcrates')
+        user && fetch(`/itemcrates/${user.id}`)
             .then(r => r.json())
             .then(allItemCrates => {
                 setAllItemCrates(allItemCrates)
             })
-    }, [])
+    }, [user])
 
-    const addItemCrate = () => {
-        console.log('i work')
-    }
-
+    const handleDelete=((deletedId)=>{
+        const updatedCrates= allItemCrates.filter((crate)=>crate.id!==deletedId)
+        setAllItemCrates(updatedCrates)
+    })
 
     const itemCrateCards = allItemCrates.map((itemcrate) => (
-        <ItemCrate
+        <ItemCrateCard
             key={itemcrate.id}
-            itemcrate={itemcrate}
+            item={itemcrate.item}
+            deletedId={itemcrate.id}
+            handleDelete={handleDelete}
         />
     ))
 
@@ -37,19 +36,6 @@ function ItemCrate() {
         </div>
     )
 }
-
-//     return (
-//         <div>
-//             <h1>Your Inventory</h1>
-//             <div className="card">
-//                 <h2>{inventory.name}</h2>
-//                 <h3>{inventory.category.name}</h3>
-//                 <h3>{inventory.amount}</h3>
-//                 <button onClick={addItem}>Add item to MyStockpile</button>
-//             </div>
-//         </div>
-//     )
-// }
 
 
 export default ItemCrate
