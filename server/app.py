@@ -46,7 +46,7 @@ class Signup(Resource):
         try:
             new_user = User(name = data['name'], username = data['username'], password_hash = data['password'] )
         except ValueError as v:
-            return make_response({'error': str(v)}, 404)
+            return make_response({'error': str(v)}, 422)
         db.session.add(new_user)
         db.session.commit()
         # allows to login user after successful signup
