@@ -23,127 +23,83 @@ body {
   padding: 20px;
 }
 
-/* :root { */
-/* --bg: #282c34;
-  /* --header: #fff;
-  --link: #61dafb;
-  --text: hsla(0, 0%, 100%, 0.88);
-  background-image: url('https://www.iwp.edu/wp-content/uploads/2022/01/apocalypse.jpg');
-} */
+.title{
+  font-size: 3rem;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 100px;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
 
-/* body{
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: grid;
-} */
+.subtitle{
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-align: center;
+  margin-top: 10px;
+  opacity: 0.8;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
 
-/* code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
+/* New styles for sign-in and login forms */
 
-/* .auth-wrapper{
-  background-image: url('https://www.iwp.edu/wp-content/uploads/2022/01/apocalypse.jpg')
-} */
+.signlog-form {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: rgba(16, 174, 35, 0.713);
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
 
+.signlog-form h1 {
+  font-size: 1.8rem;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
-/* NAVBAR */
-/* button {
-  position: relative;
-  background-color: #4be069;
+.signlog-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
   border: none;
   border-radius: 5px;
-  height: 3rem;
-  width: max-content;
-  color: whitesmoke;
-  font-size: 18px;
-  justify-self: center;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
 }
 
-.navbutton {
-  position: relative;
-  background-color: #0d63a4;
-  border: 15px;
+.signlog-form button {
+  width: 100%;
+  padding: 10px;
+  border: none;
   border-radius: 5px;
-  height: 3rem;
-  width: 5rem;
-  color: whitesmoke;
-  font-size: 18px;
-  justify-self: stretch;
+  background-color: #14a380;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-nav {
-  margin: 27px auto 0;
-  position: relative;
-  width: 590px;
-  height: 50px;
-  background-color: #b76d1e;
-  border-radius: 8px;
-  font-size: 0;
+.login{
+  margin: 10px;
+  display: flex;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
 }
-nav a {
-  line-height: 15px;
-  height: 100%;
-  font-size: 15px;
-  display: inline-block;
-  position: relative;
-  top:20px;
-  z-index: 1;
-  text-decoration: underline overline #030303;
-  text-transform: uppercase;
-  text-align: center;
-  color: rgb(5, 5, 5);
-  cursor: grab;
+
+.signlog-form button:hover {
+  background-color: #00a6c7;
 }
-nav .animation {
-  position: absolute;
-  height: 100%;
-  top: 0;
-  z-index: 0;
-  transition: all .5s ease 0s;
-  border-radius: 8px;
+
+.signlog-form a {
+  color: #ffffff;
+  text-decoration: none;
 }
-a:nth-child(1) {
-  width: 100px;
+
+.signlog-form a:hover {
+  text-decoration: underline;
 }
-a:nth-child(2) {
-  width: 110px;
-}
-a:nth-child(3) {
-  width: 100px;
-}
-a:nth-child(4) {
-  width: 160px;
-}
-a:nth-child(5) {
-  width: 120px;
-}
-nav .start-home, a:nth-child(1):hover~.animation {
-  width: 100px;
-  left: 0;
-  background-color: #1abc9c;
-}
-nav .start-aboutus, a:nth-child(2):hover~.animation {
-  width: 110px;
-  left: 100px;
-  background-color: #e74c3c;
-}
-nav .start-drinks, a:nth-child(3):hover~.animation {
-  width: 100px;
-  left: 210px;
-  background-color: #3498db;
-}
-nav .start-drinkform, a:nth-child(4):hover~.animation {
-  width: 160px;
-  left: 310px;
-  background-color: #9b59b6;
-}
-nav .start-contact, a:nth-child(5):hover~.animation {
-  width: 120px;
-  left: 470px;
-  background-color: #e67e22;
-} */

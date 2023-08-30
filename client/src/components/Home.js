@@ -21,8 +21,8 @@ function Home() {
 
     return (
         <div>
-            <h1>Ready, Set, Survive</h1>
-            <h3>....be prepared for every catastrophe!</h3>
+            <h1 className='title'>Ready, Set, Survive</h1>
+            <h3 className='subtitle'>....be prepared for every catastrophe!</h3>
             {user ?
                 <div>
                     <h3>Welcome Back, {user.name}!</h3>
@@ -30,9 +30,9 @@ function Home() {
                     <button onClick={handleLogOut}>Sign Out</button>
                 </div>
                 :
-                <div>
+                <div className='signlog-form'>
                     {loginSignup ?
-                        <div>
+                        <div className= 'login'>
                             <h1>Login in below!</h1>
                             <Login setUser={setUser} />
                             <Button variant='outline-warning' onClick={handleLoginSignup}>Click here to Sign Up!</Button>

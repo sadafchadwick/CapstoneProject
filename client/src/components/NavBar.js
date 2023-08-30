@@ -9,7 +9,7 @@ const NavBar = () => {
                 <NavLink to="/profile">Profile</NavLink>
                 <NavLink to="/itemcrate">My Stockpile</NavLink>
                 <NavLink to="/items">Generic items list</NavLink>
-                <NavLink to="/documents">Survival Documents</NavLink>
+                {/* <NavLink to="/documents">Survival Documents</NavLink> */}
                 {/* <NavLink to="/logout">LogOut</NavLink> */}
             </nav>
         </div>
