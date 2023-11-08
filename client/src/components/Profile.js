@@ -131,7 +131,6 @@ function Profile() {
 
     return (
         <div>
-
             {user ? (
                 <>
                     <div>
