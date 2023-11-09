@@ -52,5 +52,5 @@ typing_extensions==4.7.1
 virtualenv==20.23.0
 virtualenv-clone==0.5.7
 wcwidth==0.2.6
-Werkzeug==2.3.7
+Werkzeug==2.2.3
 zipp==3.16.2

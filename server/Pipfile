@@ -15,6 +15,7 @@ ipython = "7.34.0"
 flask-restful = "*"
 flask-bcrypt = "*"
 flask-cors = "*"
+Werkzeug = "2.2.3"
 
 [dev-packages]
 
